@@ -9,6 +9,7 @@ import android.os.Parcel;
 import android.os.RemoteException;
 import com.oplus.app.OplusAppInfo;
 import com.oplus.app.OplusTaskInfoChangeListener;
+import com.oplus.osense.complexscene.OplusComplexSceneObserver;
 import java.util.List;
 
 /* loaded from: classes.dex */
@@ -128,6 +129,24 @@ public class OplusActivityManager extends OplusBaseActivityManager implements IO
     }
 
     public void addBackgroundRestrictedInfo(String callerPkg, java.util.List<String> targetPkgList) throws android.os.RemoteException {
+    }
+
+    /**
+     * Registers an OSense complex-scene observer when the Oplus activity-manager extension is
+     * available. The AOSP compatibility implementation has no corresponding system service, so
+     * report that registration is unsupported.
+     */
+    public boolean registerComplexSceneObserver(
+            Bundle bundle, OplusComplexSceneObserver observer) throws RemoteException {
+        return false;
+    }
+
+    /**
+     * See {@link #registerComplexSceneObserver(Bundle, OplusComplexSceneObserver)}.
+     */
+    public boolean unregisterComplexSceneObserver(
+            Bundle bundle, OplusComplexSceneObserver observer) throws RemoteException {
+        return false;
     }
 
     /**
