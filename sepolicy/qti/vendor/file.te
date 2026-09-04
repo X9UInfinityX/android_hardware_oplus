@@ -9,6 +9,7 @@ type vendor_persist_explorer_file, file_type;
 type vendor_proc_camera, fs_type, proc_type;
 
 # Charging
+type oplus_battery_log_file, file_type, data_file_type;
 type vendor_proc_charger, fs_type, proc_type;
 type vendor_sysfs_charger, fs_type, sysfs_type;
 type vendor_proc_wireless, fs_type, proc_type;
