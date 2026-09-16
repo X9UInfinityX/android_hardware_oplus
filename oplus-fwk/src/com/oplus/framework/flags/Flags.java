@@ -23,6 +23,10 @@ public final class Flags {
         return true;
     }
 
+    public static boolean coloros1501ConfidentialZhufeng() {
+        return false;
+    }
+
     public static boolean enableConnectedDisplaysWallpaper() {
         return false;
     }

@@ -41,4 +41,10 @@ public class OplusTouchNodeManager {
     public boolean writeNodeFileByDevice(int deviceId, int nodeFlag, String info) {
         return false;
     }
+
+    public boolean isTouchNodeSupport(int deviceId, int nodeFlag) {
+        // The OEM app uses this query to enable optional touch features such as glove mode.
+        // No compatible OPlus touch-node server is exposed by the AOSP framework yet.
+        return false;
+    }
 }

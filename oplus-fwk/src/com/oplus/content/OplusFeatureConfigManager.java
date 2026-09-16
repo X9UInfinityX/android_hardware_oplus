@@ -16,6 +16,11 @@ public class OplusFeatureConfigManager {
         return sOplusFeatureConfigManager;
     }
 
+    // Kept for binary compatibility with the misspelled API shipped by ColorOS.
+    public static OplusFeatureConfigManager getInstacne() {
+        return getInstance();
+    }
+
     public boolean hasFeature(String name) {
         if ("oplus.software.vibrator_lmvibrator".equals(name)) {
             // OnePlus 7/8 series use old OnePlus base camera. Don't let this feature break haptic feedback.

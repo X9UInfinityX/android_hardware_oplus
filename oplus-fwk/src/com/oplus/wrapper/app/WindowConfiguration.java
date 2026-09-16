@@ -18,43 +18,49 @@ public class WindowConfiguration {
     public static final int ACTIVITY_TYPE_HOME = 2;
     public static final int ACTIVITY_TYPE_RECENTS = 3;
 
+    private final android.app.WindowConfiguration mTarget;
+
     public WindowConfiguration() {
+        mTarget = new android.app.WindowConfiguration();
     }
 
     public WindowConfiguration(android.app.WindowConfiguration windowConfiguration) {
+        mTarget = windowConfiguration;
     }
 
     public android.app.WindowConfiguration getmWindowConfiguration() {
-        return null;
+        return mTarget;
     }
 
     public Rect getMaxBounds() {
-        return null;
+        return mTarget.getMaxBounds();
     }
 
     public int getActivityType() {
-        return 0;
+        return mTarget.getActivityType();
     }
 
     public Rect getAppBounds() {
-        return null;
+        return mTarget.getAppBounds();
     }
 
     public Rect getBounds() {
-        return null;
+        return mTarget.getBounds();
     }
 
     public int getRotation() {
-        return 0;
+        return mTarget.getRotation();
     }
 
     public int getWindowingMode() {
-        return 0;
+        return mTarget.getWindowingMode();
     }
 
     public void setAppBounds(Rect rect) {
+        mTarget.setAppBounds(rect);
     }
 
     public void setWindowingMode(int windowingMode) {
+        mTarget.setWindowingMode(windowingMode);
     }
 }
