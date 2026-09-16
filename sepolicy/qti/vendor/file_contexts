@@ -122,6 +122,9 @@
 # Project
 /(odm|vendor/odm)/bin/hw/vendor.oplus.hardware.stability.oplus_project-V1-service    u:object_r:hal_oplus_project_aidl_exec:s0
 
+# Misc
+/(odm|vendor/odm)/bin/hw/vendor-oplus-hardware-misc-V1-service    u:object_r:hal_oplus_misc_aidl_exec:s0
+
 # Radio
 /(odm|vendor/odm)/bin/hw/subsys_daemon    u:object_r:subsystem_daemon_exec:s0
 /vendor/bin/nrmodeswitcher                u:object_r:vendor_nrmodeswitcher_exec:s0

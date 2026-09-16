@@ -42,6 +42,7 @@ type proc_horae, fs_type, proc_type;
 
 # Input
 type proc_bus_input, fs_type, proc_type;
+type proc_cs_press_file, fs_type, proc_type;
 
 # Multimedia feedback
 type vendor_proc_mm_fb, fs_type, proc_type;

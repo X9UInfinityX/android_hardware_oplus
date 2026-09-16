@@ -31,6 +31,9 @@ type hal_fingerprintpay_service, hal_service_type, service_manager_type;
 # ImsRtp
 type hal_imsrtp_service, hal_service_type, service_manager_type;
 
+# Misc
+type hal_oplus_misc_aidl_service, hal_service_type, service_manager_type;
+
 # OLC
 type hal_oplus_olc_aidl_service, hal_service_type, service_manager_type;
 

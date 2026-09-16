@@ -107,6 +107,14 @@
         </interface>
     </hal>
     <hal format="aidl" optional="true">
+        <name>vendor.oplus.hardware.misc</name>
+        <version>1</version>
+        <interface>
+            <name>IOplusMisc</name>
+            <instance>default</instance>
+        </interface>
+    </hal>
+    <hal format="aidl" optional="true">
         <name>vendor.oplus.hardware.cwb</name>
         <version>1-2</version>
         <interface>
