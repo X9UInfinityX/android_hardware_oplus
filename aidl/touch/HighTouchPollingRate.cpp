@@ -12,6 +12,7 @@
 #include <android-base/properties.h>
 
 #include <cctype>
+#include <charconv>
 
 #include <OplusTouchConstants.h>
 
@@ -24,6 +25,20 @@ constexpr const char* kGameSwitchEnablePath = "/proc/touchpanel/game_switch_enab
 constexpr const char* kTouchReportRateProperty = "sys.touch.report_rate";
 constexpr const char* kPersistTouchReportRateProperty = "persist.hbp.touch_report_rate";
 constexpr int kDefaultReportRateMode = 3;
+
+bool parseReportRateEnabled(const std::string& value) {
+    const size_t begin = value.find_first_not_of(" \t\r\n");
+    if (begin == std::string::npos) {
+        return false;
+    }
+
+    const size_t end = value.find_first_of(", \t\r\n", begin);
+    int mode = 0;
+    const auto result = std::from_chars(
+            value.data() + begin,
+            value.data() + (end == std::string::npos ? value.size() : end), mode);
+    return result.ec == std::errc() && mode != 0;
+}
 
 bool parseEnabled(const std::string& value) {
     if (value.empty()) {
@@ -77,6 +92,15 @@ ndk::ScopedAStatus HighTouchPollingRate::getEnabled(bool* _aidl_return) {
 
     if (mOplusTouch) {
         int supported = 0;
+        mOplusTouch->isTouchNodeSupport(OplusTouchConstants::DEFAULT_TP_IC_ID,
+                                        OplusTouchConstants::REPORT_RATE_MODE_NODE, &supported);
+        if (supported == 1) {
+            mOplusTouch->touchReadNodeFile(OplusTouchConstants::DEFAULT_TP_IC_ID,
+                                           OplusTouchConstants::REPORT_RATE_MODE_NODE, &value);
+            *_aidl_return = parseReportRateEnabled(value);
+            return ndk::ScopedAStatus::ok();
+        }
+
         mOplusTouch->isTouchNodeSupport(OplusTouchConstants::DEFAULT_TP_IC_ID,
                                         OplusTouchConstants::HIGH_FRAME_ENABLE_NODE, &supported);
         if (supported == 1) {
