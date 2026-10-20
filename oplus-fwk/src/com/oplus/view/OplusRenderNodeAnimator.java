@@ -5,6 +5,54 @@ import android.animation.ValueAnimator;
 import android.view.View;
 
 public class OplusRenderNodeAnimator {
+    private static final class RtAnimator extends ValueAnimator implements IRtAnimationTarget {
+        private final IRtAnimationTarget mTarget;
+
+        RtAnimator(IRtAnimationTarget target) {
+            mTarget = target;
+        }
+
+        @Override
+        public void animateToFinalPosition(float finalPosition) {
+            mTarget.animateToFinalPosition(finalPosition);
+        }
+
+        @Override
+        public void cancel() {
+            mTarget.cancel();
+        }
+
+        @Override
+        public boolean doFrame(long frameTime) {
+            return mTarget.doFrame(frameTime);
+        }
+
+        @Override
+        public void end() {
+            mTarget.end();
+        }
+
+        @Override
+        public boolean isRunning() {
+            return mTarget.isRunning();
+        }
+
+        @Override
+        public void setAnimationHandler() {
+            mTarget.setAnimationHandler();
+        }
+
+        @Override
+        public void skipToEnd() {
+            mTarget.skipToEnd();
+        }
+
+        @Override
+        public void start() {
+            mTarget.start();
+        }
+    }
+
     public static void animateToFinalPosition(Animator animator, float finalPosition) {
         if (animator instanceof IRtAnimationTarget) {
             ((IRtAnimationTarget) animator).animateToFinalPosition(finalPosition);
@@ -16,30 +64,17 @@ public class OplusRenderNodeAnimator {
     }
 
     public static Animator createRtAnimator(IRtAnimationTarget target, View view) {
-        ValueAnimator animator = ValueAnimator.ofFloat(0.0f, 1.0f);
-        animator.addListener(new Animator.AnimatorListener() {
-            @Override
-            public void onAnimationStart(Animator animation) {
-                target.start();
-            }
+        if (target == null || view == null) {
+            return null;
+        }
 
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                target.end();
-            }
-
-            @Override
-            public void onAnimationCancel(Animator animation) {
-                target.cancel();
-            }
-
-            @Override
-            public void onAnimationRepeat(Animator animation) {}
-        });
-        return animator;
+        // ColorOS uses OplusRenderValueAnimator to drive this target from the render thread.
+        // AOSP does not provide that class, so keep the target on its own Choreographer-backed
+        // animation handler and provide the same Animator/IRtAnimationTarget forwarding contract.
+        return new RtAnimator(target);
     }
 
     public static long getFrameNumber(Animator animator) {
-        return -1L;
+        return 0L;
     }
 }
